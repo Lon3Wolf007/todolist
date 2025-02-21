@@ -55,15 +55,17 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState("");
 
+  // Fetch todos from the backend
   useEffect(() => {
-    axios.get("http://localhost:5000/api/todos")
+    axios.get("/api/todos") // No need to include the base URL since it's already set
       .then((response) => setTodos(response.data))
       .catch((error) => console.error(error));
   }, []);
 
+  // Add a new todo
   const addTodo = () => {
     if (!task.trim()) return;
-    axios.post("http://localhost:5000/api/todos", { task })
+    axios.post("/api/todos", { task }) // Same here, no need for full URL
       .then((response) => setTodos([...todos, response.data]))
       .catch((error) => console.error(error));
     setTask("");
